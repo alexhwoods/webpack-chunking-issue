@@ -1,15 +1,15 @@
-import Image from 'next/image'
-import shipImage from './ship.jpg'
+import Image from "next/image";
+import * as shipImage from "./ship.jpg";
 
-export const shipWeight = 2000
+export const shipWeight = 2000;
 
 function Ship() {
   return (
     <div>
       <p>Im a ship</p>
-      <Image src={shipImage} alt="ship" />
+      <Image src={shipImage} alt="Ship" />
     </div>
-  )
+  );
 }
 
-export default Ship
+export default Ship;
