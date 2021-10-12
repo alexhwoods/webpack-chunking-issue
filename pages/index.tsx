@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
 
-import { shipWeight } from "../components/Ships";
+// import { shipWeight } from "../components/Ships";
+const shipWeight = 200000;
 
 const Ship = dynamic(import("../components/Ships"));
 
