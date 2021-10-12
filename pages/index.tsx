@@ -1,13 +1,17 @@
-import type { NextPage } from 'next'
+import type { NextPage } from "next";
+import Link from "next/link";
 
-import Ship from '../components/Ship'
+import { shipWeight } from "../components/Ship";
 
 const Home: NextPage = () => {
   return (
     <div>
-      <Ship />
+      <p>The ship weighs {shipWeight}lbs.</p>
+      <Link href="/ship">
+        <a>See ship</a>
+      </Link>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
