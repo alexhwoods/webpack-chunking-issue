@@ -12,7 +12,7 @@ const Home: NextPage = () => {
     <div>
       <p>Did you know a ship can weigh up to {shipWeight}tons?</p>
       <p>Its a pretty impressive ship.</p>
-      <button onClick={() => setViewShip(!viewShip)}>View Ship</button>
+      <button onClick={() => setViewShip(!viewShip)}>View Ships</button>
       {viewShip && <Ship />}
     </div>
   );
