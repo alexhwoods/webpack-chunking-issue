@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
 
-import { shipWeight } from "../components/Ship";
+import { shipWeight } from "../components/Ships";
 
-const Ship = dynamic(import("../components/Ship"));
+const Ship = dynamic(import("../components/Ships"));
 
 const Home: NextPage = () => {
   const [viewShip, setViewShip] = useState(false);
   return (
     <div>
-      <p>The ship weighs {shipWeight}lbs.</p>
+      <p>Did you know a ship can weigh up to {shipWeight}tons?</p>
       <p>Its a pretty impressive ship.</p>
       <button onClick={() => setViewShip(!viewShip)}>View Ship</button>
       {viewShip && <Ship />}
