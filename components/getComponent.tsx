@@ -10,7 +10,7 @@ export function getComponent(type: string): ComponentType<any> {
       return dynamic(import("./Foo"));
 
     case IconsType:
-      return dynamic(import("./Foo")); // this is a bug!
+      return dynamic(import("./Icons"));
 
     default:
       throw Error(`Dont have component type ${type}`);
