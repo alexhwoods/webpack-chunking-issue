@@ -1,7 +1,8 @@
 import { ComponentType } from "react";
 import dynamic from "next/dynamic";
 
-import { componentName as IconsName } from "./Icons";
+// import { componentName as IconsName } from "./Icons";
+const IconsName = "Icons";
 import { componentName as FooName } from "./Foo";
 
 export function getComponent(type: string): ComponentType<any> {
