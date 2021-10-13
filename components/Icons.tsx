@@ -1,6 +1,6 @@
 import * as allIcons from "@mui/material";
 
-export const componentName = "Icons";
+export const componentType = "Icons";
 
 const Icons = (): JSX.Element => {
   console.log(allIcons);
