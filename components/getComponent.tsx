@@ -1,18 +1,15 @@
 import { ComponentType } from "react";
 import dynamic from "next/dynamic";
 
-import { componentType as FooType } from "./Foo";
-import { componentType as IconsType } from "./Icons";
-
 const Foo = dynamic(() => import("./Foo"));
 const Icons = dynamic(() => import("./Icons"));
 
 export function getComponent(type: string): ComponentType<any> {
   switch (type) {
-    case FooType:
+    case "Foo":
       return Foo;
 
-    case IconsType:
+    case "Icons":
       return Icons;
 
     default:

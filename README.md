@@ -28,19 +28,21 @@ Here's our `getComponent` function.
 import { ComponentType } from "react";
 import dynamic from "next/dynamic";
 
+const Foo = dynamic(() => import("./Foo"));
+const Icons = dynamic(() => import("./Icons"));
+
 export function getComponent(type: string): ComponentType<any> {
   switch (type) {
-    case 'Foo':
-      return dynamic(import("./Foo"));
+    case "Foo":
+      return Foo;
 
-    case 'Icons':
-      return dynamic(import("./Icons"));
+    case "Icons":
+      return Icons;
 
     default:
       throw Error(`Dont have component type ${type}`);
   }
 }
-
 ```
 
 Our main page looks like this, and won't change
