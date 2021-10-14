@@ -21,9 +21,9 @@ const Icons = (): JSX.Element => {
 export default Icons;
 ```
 
-Of course, we want to dynamically import these, so `Icons` doesn't affect `Foo`'s bundle size.
+Of course, we want to dynamically import these, so `Icons` doesn't affect the bundle size when it's not included in the page.
 
-Here's our `getComponent` function.
+We have a function, `getComponent`, which I'll use to illustrate this.
 ```typescript
 import { ComponentType } from "react";
 import dynamic from "next/dynamic";
@@ -59,7 +59,7 @@ const Home: NextPage = () => {
 };
 ```
 
-Currently, all is well with the world. Gzipped, our bundle size is 91.5KB.
+Currently, all is well with the world. Gzipped, our bundle size is 91.6KB.
 
 ![Base Browser](/demo-images/base-browser.png)
 
@@ -71,10 +71,10 @@ All of this is because the `Icons` component, which references a massive chunk c
 In summary,
 | Metric               | Value       |
 | -----------          | ----------- |
-| Bundle Size          | 91.5KB      |
+| Bundle Size          | 91.6KB      |
 | Icons Chunk Included | no          |
 
-## Importing a single export is fine
+## Importing a single const export is fine
 Let's start on the path towards having components define their own type, but we'll introduce a
 bug as well to show that this alone doesn't affect bundle size.
 
@@ -175,7 +175,7 @@ But wait, it's included in our bundle!
 
 
 # Conclusion
-When we do both a static and a dynamic import of the same module,
+When we do both a static and a dynamic import of the same module, in this case the `Icons` module
 we get the entire module.
 - Tree shaking doesn't occur
 - It's not imported dynamically
