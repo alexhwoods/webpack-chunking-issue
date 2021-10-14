@@ -28,19 +28,21 @@ Here's our `getComponent` function.
 import { ComponentType } from "react";
 import dynamic from "next/dynamic";
 
+const Foo = dynamic(() => import("./Foo"));
+const Icons = dynamic(() => import("./Icons"));
+
 export function getComponent(type: string): ComponentType<any> {
   switch (type) {
-    case 'Foo':
-      return dynamic(import("./Foo"));
+    case "Foo":
+      return Foo;
 
-    case 'Icons':
-      return dynamic(import("./Icons"));
+    case "Icons":
+      return Icons;
 
     default:
       throw Error(`Dont have component type ${type}`);
   }
 }
-
 ```
 
 Our main page looks like this, and won't change
@@ -80,22 +82,22 @@ Here's our diff.
 
 In `getComponent`
 ```diff
- import { ComponentType } from "react";
- import dynamic from "next/dynamic";
-
 +import { componentType as FooType } from "./Foo";
 +import { componentType as IconsType } from "./Icons";
 +
+ const Foo = dynamic(() => import("./Foo"));
+-const Icons = dynamic(() => import("./Icons"));
+
  export function getComponent(type: string): ComponentType<any> {
    switch (type) {
 -    case "Foo":
 +    case FooType:
-       return dynamic(import("./Foo"));
+       return Foo;
 
 -    case "Icons":
--      return dynamic(import("./Icons"));
+-      return Icons;
 +    case IconsType:
-+      return dynamic(import("./Foo")); // this is a bug!
++      return Foo; // this is a bug!
 
      default:
        throw Error(`Dont have component type ${type}`);
@@ -136,11 +138,20 @@ Ah, of course, that's because we have that bug. Let's fix that.
 ## Fixing the bug
 
 ```diff
-       return dynamic(import("./Foo"));
+ import { componentType as IconsType } from "./Icons";
+
+ const Foo = dynamic(() => import("./Foo"));
++const Icons = dynamic(() => import("./Icons"));
+
+ export function getComponent(type: string): ComponentType<any> {
+   switch (type) {
+(1/2) Stage this hunk [y,n,q,a,d,j,J,g,/,e,?]? y
+@@ -12,7 +13,7 @@ export function getComponent(type: string): ComponentType<any> {
+       return Foo;
 
      case IconsType:
--      return dynamic(import("./Foo")); // this is a bug!
-+      return dynamic(import("./Icons"));
+-      return Foo; // this is a bug!
++      return Icons;
 
      default:
        throw Error(`Dont have component type ${type}`);
@@ -157,8 +168,6 @@ But wait, it's included in our bundle!
 
 ![Final Browser](/demo-images/final-browser.png)
 
-And now all our performance metrics are worse.
-
 | Metric               | Value       |
 | -----------          | ----------- |
 | Bundle Size          | 221KB       |
@@ -166,9 +175,12 @@ And now all our performance metrics are worse.
 
 
 # Conclusion
+When we do both a static and a dynamic import of the same module,
+we get the entire module.
+- Tree shaking doesn't occur
+- It's not imported dynamically
 
-Mixing dynamic and single static imports nullifies the benefit of either of them.
-
+They kind of cancel each other's benefits out.
 
 # To Run Yourself
 ```bash
