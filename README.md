@@ -175,9 +175,12 @@ But wait, it's included in our bundle!
 
 
 # Conclusion
+When we do both a static and a dynamic import of the same module,
+we get the entire module.
+- Tree shaking doesn't occur
+- It's not imported dynamically
 
-Mixing dynamic and single static imports nullifies the benefit of either of them.
-
+They kind of cancel each other's benefits out.
 
 # To Run Yourself
 ```bash
