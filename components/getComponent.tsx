@@ -5,6 +5,7 @@ import { componentType as FooType } from "./Foo";
 import { componentType as IconsType } from "./Icons";
 
 const Foo = dynamic(() => import("./Foo"));
+const Icons = dynamic(() => import("./Icons"));
 
 export function getComponent(type: string): ComponentType<any> {
   switch (type) {
@@ -12,7 +13,7 @@ export function getComponent(type: string): ComponentType<any> {
       return Foo;
 
     case IconsType:
-      return Foo; // this is a bug!
+      return Icons;
 
     default:
       throw Error(`Dont have component type ${type}`);

@@ -138,11 +138,20 @@ Ah, of course, that's because we have that bug. Let's fix that.
 ## Fixing the bug
 
 ```diff
-       return dynamic(import("./Foo"));
+ import { componentType as IconsType } from "./Icons";
+
+ const Foo = dynamic(() => import("./Foo"));
++const Icons = dynamic(() => import("./Icons"));
+
+ export function getComponent(type: string): ComponentType<any> {
+   switch (type) {
+(1/2) Stage this hunk [y,n,q,a,d,j,J,g,/,e,?]? y
+@@ -12,7 +13,7 @@ export function getComponent(type: string): ComponentType<any> {
+       return Foo;
 
      case IconsType:
--      return dynamic(import("./Foo")); // this is a bug!
-+      return dynamic(import("./Icons"));
+-      return Foo; // this is a bug!
++      return Icons;
 
      default:
        throw Error(`Dont have component type ${type}`);
@@ -158,8 +167,6 @@ We can see the chunk with all the icons is back, now it's called
 But wait, it's included in our bundle!
 
 ![Final Browser](/demo-images/final-browser.png)
-
-And now all our performance metrics are worse.
 
 | Metric               | Value       |
 | -----------          | ----------- |
