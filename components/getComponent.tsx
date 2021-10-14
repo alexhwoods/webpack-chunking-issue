@@ -1,16 +1,18 @@
 import { ComponentType } from "react";
 import dynamic from "next/dynamic";
 
+import { componentType as FooType } from "./Foo";
+import { componentType as IconsType } from "./Icons";
+
 const Foo = dynamic(() => import("./Foo"));
-const Icons = dynamic(() => import("./Icons"));
 
 export function getComponent(type: string): ComponentType<any> {
   switch (type) {
-    case "Foo":
+    case FooType:
       return Foo;
 
-    case "Icons":
-      return Icons;
+    case IconsType:
+      return Foo; // this is a bug!
 
     default:
       throw Error(`Dont have component type ${type}`);

@@ -82,22 +82,22 @@ Here's our diff.
 
 In `getComponent`
 ```diff
- import { ComponentType } from "react";
- import dynamic from "next/dynamic";
-
 +import { componentType as FooType } from "./Foo";
 +import { componentType as IconsType } from "./Icons";
 +
+ const Foo = dynamic(() => import("./Foo"));
+-const Icons = dynamic(() => import("./Icons"));
+
  export function getComponent(type: string): ComponentType<any> {
    switch (type) {
 -    case "Foo":
 +    case FooType:
-       return dynamic(import("./Foo"));
+       return Foo;
 
 -    case "Icons":
--      return dynamic(import("./Icons"));
+-      return Icons;
 +    case IconsType:
-+      return dynamic(import("./Foo")); // this is a bug!
++      return Foo; // this is a bug!
 
      default:
        throw Error(`Dont have component type ${type}`);
