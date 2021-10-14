@@ -23,7 +23,7 @@ export default Icons;
 
 Of course, we want to dynamically import these, so `Icons` doesn't affect the bundle size when it's not included in the page.
 
-We have a function, `getComponent`, which I'll use to illustrate this.
+Here is the `getComponent` function:
 ```typescript
 import { ComponentType } from "react";
 import dynamic from "next/dynamic";
